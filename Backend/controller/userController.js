@@ -12,12 +12,12 @@ exports.createUser = async (req, res) => {
       throw new Error("All fields are required");
     }
 
-    const ExistingEmail = await User.findOne(email);
+    const ExistingEmail = await User.findOne({ email });
     if (ExistingEmail) {
       throw new Error("Email already exists");
     }
 
-    const user = await User.send({ name, email });
+    const user = await User.create({ name, email });
     res.status(201).json({
       sucess: true,
       message: "user creates Sucessfully",
@@ -28,46 +28,34 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.getUser() = async (req,res) => {
+exports.getUser = async (req, res) => {
   try {
-    const users = await User.find()
-    res.status(201).json({
-      sucess:true,
-      users
-    })
-  } catch (error) {
-    console.log(error)
-    res.status(401).json({
-      sucess:false,
-      message:error.message 
-    })
-  }
-}
-
-exports.updateUser = async (req, res) => {
-  try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body);
+    const users = await User.find();
     res.status(201).json({
       sucess: true,
-      message: "user updated sucessfully",
+      users,
     });
   } catch (error) {
     console.log(error);
     res.status(401).json({
-      sucess:false,
-      message:error.message
-    })
+      sucess: false,
+      message: error.message,
+    });
   }
 };
 
-exports.deleteUser = async (req, res) => {
+exports.editUser = async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.params.Id, req.body);
+    const users = await User.findByIdAndUpdate(req.params.id, req.body);
     res.status(201).json({
       sucess: true,
-      message: "user Deleted sucessfully",
+      message: "user updates sucessfully ",
     });
   } catch (error) {
     console.log(error);
+    res.status(401).json({
+      sucess: false,
+      message: error.message,
+    });
   }
 };

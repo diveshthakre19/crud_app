@@ -1,10 +1,14 @@
 // url path using router
 const express = require("express");
-const { home, createUser, getUser } = require("../controller/usercontroller");
+const {
+  home,
+  createUser,
+  getUser,
+  editUser,
+} = require("../controller/usercontroller");
 const router = express.Router();
-
-app.get("/", home);
-app.post("/createUser", createUser);
-app.get("/getUser", getUser);
-
+router.get("/", home);
+router.post("/createUser", createUser);
+router.get("/getUser", getUser);
+router.put("/editUSer/:id", editUser);
 module.exports = router;
