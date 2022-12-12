@@ -27,3 +27,47 @@ exports.createUser = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.getUser() = async (req,res) => {
+  try {
+    const users = await User.find()
+    res.status(201).json({
+      sucess:true,
+      users
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(401).json({
+      sucess:false,
+      message:error.message 
+    })
+  }
+}
+
+exports.updateUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body);
+    res.status(201).json({
+      sucess: true,
+      message: "user updated sucessfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({
+      sucess:false,
+      message:error.message
+    })
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.Id, req.body);
+    res.status(201).json({
+      sucess: true,
+      message: "user Deleted sucessfully",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
