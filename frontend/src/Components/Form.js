@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
-const form = () => {
+const Form = () => {
+  // to prevent refresh on submit
+  const handelSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+
   return (
     <div>
-      <form>
+      <form onSubmit={handelSubmit}>
         <section className="text-gray-600 body-font relative">
           <div className="container px-5 py-8 mx-auto">
             <div className="flex flex-col text-center w-full mb-6">
@@ -26,6 +34,11 @@ const form = () => {
                       id="name"
                       name="name"
                       className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      value={userName}
+                      onChange={(event) => {
+                        setUserName(event.target.value);
+                        console.log(userName);
+                      }}
                     />
                   </div>
                 </div>
@@ -42,6 +55,11 @@ const form = () => {
                       id="email"
                       name="email"
                       className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      value={userEmail}
+                      onChange={(event) => {
+                        setUserEmail(event.target.value);
+                        console.log(userEmail);
+                      }}
                     />
                   </div>
                 </div>
@@ -62,4 +80,4 @@ const form = () => {
   );
 };
 
-export default form;
+export default Form;
