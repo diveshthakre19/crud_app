@@ -1,13 +1,25 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 const Form = () => {
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  // function to submit Data
+  const submitData = () => {
+    const data = {
+      name: userName,
+      email: userEmail,
+    };
+    const res = axios.post("/createUser", data);
+    console.log(res);
+    setUserEmail("");
+    setUserName("");
+  };
+
   // to prevent refresh on submit
   const handelSubmit = (event) => {
     event.preventDefault();
+    submitData();
   };
-
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
 
   return (
     <div>
